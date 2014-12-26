@@ -1,0 +1,79 @@
+body {
+ background-color: #336699;
+ color: white;
+ margin-left: 3%;
+ margin-top: 0%;
+ margin-bottom: 0%;
+}
+
+.menuItem {
+ background-color: #336699;
+ color: white;
+}
+.menuItem:hover {
+ color: #336699;
+ background-color: white;
+}
+.selectedMenu {
+ background-color: white;
+ color: #0C2097;
+}
+a.menuItem,a.menuItem:visited {
+background-color: #5e8ce9;
+border-width: 0;
+}
+
+div.menu {
+ background-color: white; 
+}
+
+.alert {
+ background-color: #0C2097;
+ text-decoration: underline;
+ font-style: italic;
+ color: white;
+}
+table.tips {
+}
+
+table.data {
+ font-family: "Courier New", Courier, monospace;
+ vertical-align: top;
+ font-size: .85em;
+}
+th {
+ vertical-align: top;
+}
+table.data th {
+ background-color: white;
+ color: #336699;
+}
+table.data tr:hover {
+ background-color: white;
+ color: #336699;
+ border-top-color: red;
+ border-bottom-color: red;
+font-size: 1em;
+}
+
+td {
+ vertical-align: top;
+}
+td.conflict {
+ background-color: red;
+}
+
+.fauxLink {
+background-color: #0C2097;
+ color: white;
+ text-decoration: underline;
+ border-width: 0;
+}
+
+.sortButtons{
+background-color: #336699;
+// background-color: #993333;
+ color: white;
+ text-decoration: underline;
+ border-width: 0;
+}

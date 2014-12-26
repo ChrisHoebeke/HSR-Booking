@@ -1,0 +1,5 @@
+<? $sql="DELETE FROM reservations WHERE reservationID='$reservationID'";
+   $result=mysql_query($sql);
+   echo "Reservation for " . $firstName . " " . $lastName . " deleted."; 
+?>
+
