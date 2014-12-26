@@ -1,0 +1,232 @@
+-- MySQL dump 10.13  Distrib 5.1.66, for debian-linux-gnu (i486)
+--
+-- Host: localhost    Database: hsr
+-- ------------------------------------------------------
+-- Server version	5.1.66-0+squeeze1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `TABLE 6`
+--
+
+DROP TABLE IF EXISTS `TABLE 6`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `TABLE 6` (
+  `lastname` varchar(18) DEFAULT NULL,
+  `firstname` varchar(25) DEFAULT NULL,
+  `title` varchar(3) DEFAULT NULL,
+  `address1` varchar(10) DEFAULT NULL,
+  `address2` varchar(10) DEFAULT NULL,
+  `city` varchar(10) DEFAULT NULL,
+  `stateProvince` varchar(10) DEFAULT NULL,
+  `country` varchar(19) DEFAULT NULL,
+  `email` varchar(13) DEFAULT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  `guestStatus` varchar(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `guests`
+--
+
+DROP TABLE IF EXISTS `guests`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `guests` (
+  `guestID` int(5) NOT NULL AUTO_INCREMENT,
+  `lastName` varchar(50) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `title` varchar(40) DEFAULT NULL,
+  `address1` varchar(30) DEFAULT NULL,
+  `address2` varchar(30) DEFAULT NULL,
+  `city` varchar(30) DEFAULT NULL,
+  `stateProvince` varchar(30) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `email` varchar(75) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `gender` enum('Male','Female') DEFAULT NULL,
+  `guestStatus` enum('WMU student','Visitor','Resident') NOT NULL,
+  PRIMARY KEY (`guestID`),
+  KEY `lastName` (`lastName`)
+) ENGINE=MyISAM AUTO_INCREMENT=67245 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `history`
+--
+
+DROP TABLE IF EXISTS `history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `history` (
+  `reservationID` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Reservation ID',
+  `reservationTime` datetime NOT NULL COMMENT 'Time of reservation',
+  `reservedBy` varchar(10) NOT NULL COMMENT 'Reserved by',
+  `proxy` varchar(40) DEFAULT NULL,
+  `guestID` char(6) NOT NULL COMMENT 'Guest ID',
+  `reason` enum('14 month','14 month + ESSP','9 month','Permanent resident','Visiting professor','PDC student','other') NOT NULL COMMENT 'Reason for stay',
+  `arrivalDate` date NOT NULL COMMENT 'Date of arrival',
+  `departureDate` date NOT NULL COMMENT 'Date of departure',
+  `guestNumber` int(1) NOT NULL DEFAULT '1' COMMENT 'Number of guests',
+  `roomType` varchar(35) NOT NULL COMMENT 'Room type requested',
+  `roomStatus` enum('Pending','Confirmed','Checked in','Checked Out','Complete') NOT NULL COMMENT 'Room status',
+  `special` text NOT NULL COMMENT 'Special requirements',
+  `arrivalTime` enum('Not known','Morning','Afternoon','Evening','Late') DEFAULT NULL COMMENT 'Expected time of arrival',
+  `departureTime` enum('Not known','Morning','Afternoon','Evening','Late') NOT NULL COMMENT 'expected time of departure',
+  `bookingTime` datetime DEFAULT NULL COMMENT 'Time of booking',
+  `roomID` char(4) DEFAULT NULL COMMENT 'Room number',
+  `bookedBy` varchar(10) DEFAULT NULL COMMENT 'Booked by',
+  `checkinTime` datetime DEFAULT NULL,
+  `keysOut` int(1) DEFAULT NULL,
+  `chipsOut` int(1) DEFAULT NULL,
+  `inventoryCheckIn` enum('Yes','No') DEFAULT NULL,
+  `checkedinBy` varchar(30) DEFAULT NULL,
+  `checkoutTime` datetime DEFAULT NULL,
+  `keysIn` int(1) DEFAULT NULL,
+  `chipsIn` int(1) DEFAULT NULL,
+  `inventoryCheckOut` enum('Yes','No') DEFAULT NULL,
+  `checkedoutBy` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`reservationID`),
+  KEY `reservationTime` (`reservationTime`,`arrivalDate`,`departureDate`,`roomType`),
+  KEY `reservedBy` (`reservedBy`)
+) ENGINE=MyISAM AUTO_INCREMENT=4280 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `master`
+--
+
+DROP TABLE IF EXISTS `master`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `master` (
+  `reservationID` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Reservation ID',
+  `reservationTime` datetime NOT NULL COMMENT 'Time of reservation',
+  `reservedBy` varchar(10) NOT NULL COMMENT 'Reserved by',
+  `proxy` varchar(40) DEFAULT NULL,
+  `guestID` char(6) NOT NULL COMMENT 'Guest ID',
+  `reason` enum('14 month','14 month + ESSP','9 month','Permanent resident','Visiting professor','PDC student','other') NOT NULL COMMENT 'Reason for stay',
+  `arrivalDate` date NOT NULL COMMENT 'Date of arrival',
+  `departureDate` date NOT NULL COMMENT 'Date of departure',
+  `guestNumber` int(1) NOT NULL DEFAULT '1' COMMENT 'Number of guests',
+  `roomType` varchar(35) NOT NULL COMMENT 'Room type requested',
+  `roomStatus` enum('Pending','Confirmed','Checked in','Checked Out','Complete') NOT NULL COMMENT 'Room status',
+  `special` text NOT NULL COMMENT 'Special requirements',
+  `arrivalTime` enum('Not known','Morning','Afternoon','Evening','Late') DEFAULT NULL COMMENT 'Expected time of arrival',
+  `departureTime` enum('Not known','Morning','Afternoon','Evening','Late') NOT NULL COMMENT 'expected time of departure',
+  `bookingTime` datetime DEFAULT NULL COMMENT 'Time of booking',
+  `roomID` char(4) DEFAULT NULL COMMENT 'Room number',
+  `bookedBy` varchar(10) DEFAULT NULL COMMENT 'Booked by',
+  `checkinTime` datetime DEFAULT NULL,
+  `keysOut` int(1) DEFAULT NULL,
+  `chipsOut` int(1) DEFAULT NULL,
+  `inventoryCheckIn` enum('Yes','No') DEFAULT NULL,
+  `checkedinBy` varchar(30) DEFAULT NULL,
+  `checkoutTime` datetime DEFAULT NULL,
+  `keysIn` int(1) DEFAULT NULL,
+  `chipsIn` int(1) DEFAULT NULL,
+  `inventoryCheckOut` enum('Yes','No') DEFAULT NULL,
+  `checkedoutBy` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`reservationID`),
+  KEY `reservationTime` (`reservationTime`,`arrivalDate`,`departureDate`,`roomType`),
+  KEY `reservedBy` (`reservedBy`)
+) ENGINE=MyISAM AUTO_INCREMENT=4259 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `reservations`
+--
+
+DROP TABLE IF EXISTS `reservations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reservations` (
+  `reservationID` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Reservation ID',
+  `reservationTime` datetime NOT NULL COMMENT 'Time of reservation',
+  `reservedBy` varchar(10) NOT NULL COMMENT 'Reserved by',
+  `proxy` varchar(40) DEFAULT NULL,
+  `guestID` char(6) NOT NULL COMMENT 'Guest ID',
+  `reason` enum('14 month','14 month + ESSP','9 month','Permanent resident','Visiting professor','PDC student','other') NOT NULL COMMENT 'Reason for stay',
+  `arrivalDate` date NOT NULL COMMENT 'Date of arrival',
+  `departureDate` date NOT NULL COMMENT 'Date of departure',
+  `guestNumber` int(1) NOT NULL DEFAULT '1' COMMENT 'Number of guests',
+  `roomType` varchar(35) NOT NULL COMMENT 'Room type requested',
+  `roomStatus` enum('Pending','Confirmed','Checked in','Checked Out','Complete') NOT NULL COMMENT 'Room status',
+  `special` text NOT NULL COMMENT 'Special requirements',
+  `arrivalTime` enum('Not known','Morning','Afternoon','Evening','Late') DEFAULT NULL COMMENT 'Expected time of arrival',
+  `departureTime` enum('Not known','Morning','Afternoon','Evening','Late') NOT NULL COMMENT 'expected time of departure',
+  `bookingTime` datetime DEFAULT NULL COMMENT 'Time of booking',
+  `roomID` char(4) DEFAULT NULL COMMENT 'Room number',
+  `bookedBy` varchar(10) DEFAULT NULL COMMENT 'Booked by',
+  `checkinTime` datetime DEFAULT NULL,
+  `keysOut` int(1) DEFAULT NULL,
+  `chipsOut` int(1) DEFAULT NULL,
+  `inventoryCheckIn` enum('Yes','No') DEFAULT NULL,
+  `checkedinBy` varchar(30) DEFAULT NULL,
+  `checkoutTime` datetime DEFAULT NULL,
+  `keysIn` int(1) DEFAULT NULL,
+  `chipsIn` int(1) DEFAULT NULL,
+  `inventoryCheckOut` enum('Yes','No') DEFAULT NULL,
+  `checkedoutBy` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`reservationID`),
+  KEY `reservationTime` (`reservationTime`,`arrivalDate`,`departureDate`,`roomType`),
+  KEY `reservedBy` (`reservedBy`)
+) ENGINE=MyISAM AUTO_INCREMENT=4294 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rooms`
+--
+
+DROP TABLE IF EXISTS `rooms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rooms` (
+  `roomID` char(4) NOT NULL COMMENT 'Room number',
+  `building` enum('Main','New') NOT NULL COMMENT 'Building',
+  `floor` enum('1st','2nd','3rd','4th','5th','6th') NOT NULL COMMENT 'Floor',
+  `roomType` enum('Dormitory','Small efficiency','Large efficiency','Suite') NOT NULL COMMENT 'Type',
+  PRIMARY KEY (`roomID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `adminLastName` varchar(30) NOT NULL,
+  `adminFirstName` varchar(30) NOT NULL,
+  `role` enum('Reservations','Management') NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `Active` enum('ACTIVE','INACTIVE') NOT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-12-26  8:43:21
